@@ -81,6 +81,9 @@
         <a href="/routes/filter?MinDistance=0&MaxDistance=1000">Filter Routes</a>
         <a href="/routes/sort?order=desc">Sort by Rating</a>
         <a href="/bookings">Bookings</a>
+        <a href="/reports/upcoming">Upcoming Bookings Report</a>
+        <a href="/run_tests">Test Results</a>
+
     </div>
 
     <div class="container">
@@ -138,12 +141,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
                         <th>Distance</th>
-                        <th>Season</th>
                         <th>Difficulty</th>
+                        <th>NumDestinations</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -152,12 +152,9 @@
                     <tr>
                         <td>{{ route.RouteId }}</td>
                         <td>{{ route.Name }}</td>
-                        <td>{{ route.Description }}</td>
-                        <td>{{ route.StartTime }}</td>
-                        <td>{{ route.EndTime }}</td>
                         <td>{{ route.Distance }} km</td>
-                        <td>{{ route.RecommendedSeason }}</td>
                         <td>{{ route.DifficultyLevel }}</td>
+                        <td>{{ route.NumDestinations }}</td>
                         <td class="action-links">
                             <form action="/routes/{{ route.RouteId }}/update" method="post" style="display: inline;">
                                 <input type="text" name="Description" placeholder="New description" required>

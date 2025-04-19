@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Routes Overview</title>
+    <title>Test Results</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,6 +28,14 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
         .nav-links {
             margin-bottom: 20px;
         }
@@ -38,7 +46,7 @@
     </style>
 </head>
 <body>
-    <h1>Routes Overview Report</h1>
+    <h1>Test Results</h1>
     
     <div class="nav-links">
         <a href="/routes">Routes</a>
@@ -47,27 +55,28 @@
         <a href="/bookings">Bookings</a>
         <a href="/reports/upcoming">Upcoming Bookings Report</a>
         <a href="/run_tests">Test Results</a>
-
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Route ID</th>
-                <th>Route Name</th>
-                <th>Distance (km)</th>
-                <th>Difficulty Level</th>
-                <th>Number of Destinations</th>
+                <th>Test</th>
+                <th>Status</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
-            {% for item in data %}
+            {% for result in results %}
             <tr>
-                <td>{{ item.RouteId }}</td>
-                <td>{{ item.RouteName }}</td>
-                <td>{{ item.Distance }}</td>
-                <td>{{ item.DifficultyLevel }}</td>
-                <td>{{ item.NumDestinations }}</td>
+                <td>{{ result.test }}</td>
+                <td class="{% if result.pass %}pass{% else %}fail{% endif %}">
+                    {% if result.pass %}PASS{% else %}FAIL{% endif %}
+                </td>
+                <td>
+                    {% if result.error is defined %}
+                        {{ result.error }}
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
