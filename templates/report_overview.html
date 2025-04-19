@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Routes Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Routes Overview Report</h1>
+    
+    <div class="nav-links">
+        <a href="/route">Routes</a>
+        <a href="/reports/overview">Routes Overview</a>
+        <a href="/reports/upcoming">Upcoming Bookings</a>
+        <a href="/reports/ratings">Route Ratings</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Route ID</th>
+                <th>Route Name</th>
+                <th>Distance (km)</th>
+                <th>Difficulty Level</th>
+                <th>Number of Destinations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.RouteId }}</td>
+                <td>{{ item.RouteName }}</td>
+                <td>{{ item.Distance }}</td>
+                <td>{{ item.DifficultyLevel }}</td>
+                <td>{{ item.NumDestinations }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

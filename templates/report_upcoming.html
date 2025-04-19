@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .paid {
+            color: green;
+            font-weight: bold;
+        }
+        .unpaid {
+            color: red;
+            font-weight: bold;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upcoming Bookings Report</h1>
+    
+    <div class="nav-links">
+        <a href="/route">Routes</a>
+        <a href="/reports/overview">Routes Overview</a>
+        <a href="/reports/upcoming">Upcoming Bookings</a>
+        <a href="/reports/ratings">Route Ratings</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>User</th>
+                <th>Route</th>
+                <th>Booking Time</th>
+                <th>Cost</th>
+                <th>Payment Status</th>
+                <th>Transport Provider</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.BookingId }}</td>
+                <td>{{ item.UserName }}</td>
+                <td>{{ item.RouteName }}</td>
+                <td>{{ item.BookingTime }}</td>
+                <td>${{ "%.2f"|format(item.TotalCost) }}</td>
+                <td class="{{ 'paid' if item.PaymentStatus else 'unpaid' }}">
+                    {{ "Paid" if item.PaymentStatus else "Unpaid" }}
+                </td>
+                <td>{{ item.TransportProvider }}</td>
+                <td>
+                    <form action="/booking/cancel" method="post">
+                        <input type="hidden" name="BookingId" value="{{ item.BookingId }}">
+                        <button type="submit">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

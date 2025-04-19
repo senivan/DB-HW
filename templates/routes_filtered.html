@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filtered Routes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Filtered Tourist Routes</h1>
+    
+    <div class="nav-links">
+        <a href="/routes">Routes</a>
+        <a href="/routes/filter?MinDistance=0&MaxDistance=1000">Filter Routes</a>
+        <a href="/routes/sort?order=desc">Sort by Rating</a>
+        <a href="/bookings">Bookings</a>
+    </div>
+
+    <div class="filter-form">
+        <h2>Filter Routes</h2>
+        <form action="/routes/filter" method="get">
+            <div class="form-group">
+                <label for="MinDistance">Min Distance (km):</label>
+                <input type="number" id="MinDistance" name="MinDistance" step="0.1" value="0.0">
+            </div>
+            <div class="form-group">
+                <label for="MaxDistance">Max Distance (km):</label>
+                <input type="number" id="MaxDistance" name="MaxDistance" step="0.1" value="1000.0">
+            </div>
+            <div class="form-group">
+                <label for="Difficulty">Difficulty Level:</label>
+                <select id="Difficulty" name="Difficulty">
+                    <option value="">Any Difficulty</option>
+                    <option value="very easy">Very Easy</option>
+                    <option value="easy">Easy</option>
+                    <option value="normal">Normal</option>
+                    <option value="hard">Hard</option>
+                    <option value="expert">Expert</option>
+                </select>
+            </div>
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    <h2>Filtered Results</h2>
+    {% if routes %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Distance</th>
+                <th>Season</th>
+                <th>Difficulty</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for route in routes %}
+            <tr>
+                <td>{{ route.RouteId }}</td>
+                <td>{{ route.Name }}</td>
+                <td>{{ route.Description }}</td>
+                <td>{{ route.StartTime }}</td>
+                <td>{{ route.EndTime }}</td>
+                <td>{{ route.Distance }} km</td>
+                <td>{{ route.RecommendedSeason }}</td>
+                <td>{{ route.DifficultyLevel }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No routes match the selected filters.</p>
+    {% endif %}
+</body>
+</html>

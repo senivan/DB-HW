@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .form-section {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .bookings-section {
+            flex: 2;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        button.delete {
+            background-color: #f44336;
+        }
+        button.confirm {
+            background-color: #2196F3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        form {
+            display: inline;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bookings Management</h1>
+    
+    <div class="nav-links">
+        <a href="/routes">Routes</a>
+        <a href="/routes/filter?MinDistance=0&MaxDistance=1000">Filter Routes</a>
+        <a href="/routes/sort?order=desc">Sort by Rating</a>
+        <a href="/bookings">Bookings</a>
+        <a href="/reports/upcoming">Upcoming Bookings Report</a>
+    </div>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>Create New Booking</h2>
+            <form action="/bookings/create" method="post">
+                <div class="form-group">
+                    <label for="UserId">User ID:</label>
+                    <input type="number" id="UserId" name="UserId" required>
+                </div>
+                <div class="form-group">
+                    <label for="ServiceType">Service Type:</label>
+                    <input type="text" id="ServiceType" name="ServiceType" required>
+                </div>
+                <div class="form-group">
+                    <label for="BookingTime">Booking Time:</label>
+                    <input type="datetime-local" id="BookingTime" name="BookingTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="TotalCost">Total Cost:</label>
+                    <input type="number" id="TotalCost" name="TotalCost" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="PaymentStatus">Payment Status:</label>
+                    <select id="PaymentStatus" name="PaymentStatus" required>
+                        <option value="true">Paid</option>
+                        <option value="false">Unpaid</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="TransportId">Transport ID:</label>
+                    <input type="number" id="TransportId" name="TransportId" required>
+                </div>
+                <div class="form-group">
+                    <label for="RouteId">Route ID:</label>
+                    <input type="number" id="RouteId" name="RouteId" required>
+                </div>
+                <button type="submit">Create Booking</button>
+            </form>
+        </div>
+
+        <div class="bookings-section">
+            <h2>All Bookings</h2>
+            {% if bookings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Service Type</th>
+                        <th>Booking Time</th>
+                        <th>Total Cost</th>
+                        <th>Payment Status</th>
+                        <th>Transport ID</th>
+                        <th>Route ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.BookingId }}</td>
+                        <td>{{ booking.UserId }}</td>
+                        <td>{{ booking.ServiceType }}</td>
+                        <td>{{ booking.BookingTime }}</td>
+                        <td>${{ "%.2f"|format(booking.TotalCost) }}</td>
+                        <td>{{ "Paid" if booking.PaymentStatus else "Unpaid" }}</td>
+                        <td>{{ booking.TransportId }}</td>
+                        <td>{{ booking.RouteId }}</td>
+                        <td class="action-buttons">
+                            {% if not booking.PaymentStatus %}
+                            <form action="/bookings/{{ booking.BookingId }}/confirm" method="post">
+                                <button type="submit" class="confirm">Confirm Payment</button>
+                            </form>
+                            {% endif %}
+                            <form action="/bookings/{{ booking.BookingId }}/delete" method="post">
+                                <button type="submit" class="delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No bookings available.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

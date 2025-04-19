@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Route Ratings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        .rating {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Route Ratings Report</h1>
+    
+    <div class="nav-links">
+        <a href="/route">Routes</a>
+        <a href="/reports/overview">Routes Overview</a>
+        <a href="/reports/upcoming">Upcoming Bookings</a>
+        <a href="/reports/ratings">Route Ratings</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Route Name</th>
+                <th>Average Rating</th>
+                <th>Number of Reviews</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.RouteName }}</td>
+                <td class="rating">{{ item.AvgRating if item.AvgRating else 'No ratings' }}</td>
+                <td>{{ item.FeedbackCount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
