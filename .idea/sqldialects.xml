@@ -7,7 +7,10 @@
     <file url="file://$PROJECT_DIR$/loaders/bookings_loader.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/dest_loader.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/faciil_loader.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/loaders/feedback_loader.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/pref_loader.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/loaders/preference_item.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/loaders/routesDesc.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/routes_destination_loader.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/routes_loader.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/loaders/transport_loader.sql" dialect="MySQL" />

@@ -3,5 +3,5 @@ LOAD DATA INFILE '/var/lib/mysql-files/csv/bookings.csv'
     FIELDS TERMINATED BY ','
     ENCLOSED BY '"'
     LINES TERMINATED BY '\n'
-    IGNORE 1 ROWS
+    IGNORE 1 LINES
     (UserId, ServiceType, BookingTime, TotalCost, PaymentStatus, TransportId, RouteId);

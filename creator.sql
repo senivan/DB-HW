@@ -1,3 +1,4 @@
+drop table if exists RouteDesc;
 drop table if exists Bookings;
 drop table if exists RoutesDestinations;
 drop table if exists PreferenceItem;
@@ -101,3 +102,13 @@ CREATE TABLE IF NOT EXISTS Feedback (
     FOREIGN KEY (UserId) REFERENCES Users(UserId) ON DELETE CASCADE,
     FOREIGN KEY (RouteId) REFERENCES Routes(RouteId) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='Feedback entity';
+CREATE TABLE IF NOT EXISTS RouteDesc (
+                                         RouteTextId       BIGINT      NOT NULL AUTO_INCREMENT,
+                                         RouteId           BIGINT      NOT NULL,
+                                         ExtendedDesc      TEXT        NOT NULL,
+                                         PRIMARY KEY (RouteTextId),
+                                         FOREIGN KEY (RouteId) REFERENCES Routes(RouteId)
+                                             ON DELETE CASCADE
+) ENGINE=MyISAM
+  DEFAULT CHARSET = utf8mb4
+    COMMENT = 'Full-text descriptions for tourist routes';

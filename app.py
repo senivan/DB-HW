@@ -326,8 +326,8 @@ def run_tests(request: Request):
         session.execute(text("ROLLBACK TO SAVEPOINT test_sp"))
     except Exception as e:
         results.append({"test":"Exception","pass":False,"error":str(e)})
-        session.execute(text("ROLLBACK TO SAVEPOINT test_sp"))
     finally:
+        session.execute(text("ROLLBACK TO SAVEPOINT test_sp"))
         session.close()
 
     return templates.TemplateResponse("test_results.html",{"request":request,"results":results})

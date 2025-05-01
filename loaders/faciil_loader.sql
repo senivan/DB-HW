@@ -3,5 +3,5 @@ LOAD DATA INFILE '/var/lib/mysql-files/csv/facilities.csv'
     FIELDS TERMINATED BY ','
     ENCLOSED BY '"'
     LINES TERMINATED BY '\n'
-    IGNORE 1 ROWS
-    (DestinationId,OpeningHour,ClosingHour,Description);
+    IGNORE 1 LINES
+    (DestinationId, OpeningHour, ClosingHour, Description);

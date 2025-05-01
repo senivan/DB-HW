@@ -3,5 +3,5 @@ LOAD DATA INFILE '/var/lib/mysql-files/csv/destinations.csv'
     FIELDS TERMINATED BY ','
     ENCLOSED BY '"'
     LINES TERMINATED BY '\n'
-    IGNORE 1 ROWS
+    IGNORE 1 LINES
     (Name, Latitude, Longtitude, Category, Description, OpenTime, CloseTime);
